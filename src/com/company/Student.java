@@ -1,50 +1,21 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class Student {
-    private String firstName;
-    private String lastName;
-    private int age;
+public class Student extends Person {
     private ArrayList<String> comments;
     private ArrayList<Integer> grades;
-    // TODO: Prezenta
+    private ArrayList<Presence> attendanceList;
+
     // CONSTRUCTOR
-
     public Student(String firstName, String lastName, int age){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
+        super(firstName, lastName, age);
         this.grades = new ArrayList<>();
+        this.attendanceList = new ArrayList<>();
     }
 
-    // GETTERS - GET Methods
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    // SETTERS - SET Methods
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void addGradeToStudent(int grade){
+    private void addGradeToStudent(int grade){
         grades.add(grade);
     }
 
@@ -57,9 +28,25 @@ public class Student {
     public double getAverageGrade() {
         int sum = 0;
         for (int i = 0; i < grades.size(); i++) {
-            // sum = sum + grades.get(i);
+            // Linia de jos este echivalent cu sum = sum + grades.get(i);
             sum += grades.get(i);
         }
         return sum / grades.size();
+    }
+
+    public void addStudentAttendance(String date, Boolean isPresent) {
+        Presence presence = new Presence(isPresent, date);
+        attendanceList.add(presence);
+    }
+
+    public void printStudentAttendance() {
+        for (int i = 0; i < attendanceList.size(); i++)
+            System.out.println(attendanceList.get(i));
+    }
+
+    public void inputGradesFromKeyboard() {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Please input the student grade: ");
+        addGradeToStudent(input.nextInt());
     }
 }
